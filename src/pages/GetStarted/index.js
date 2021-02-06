@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import {ILGetStarted, ILLogo} from '../../assets';
 import {Button, Separator} from '../../components';
+import {colors, fonts} from '../../utils';
 
 export default function Navigation({navigation}) {
   return (
@@ -34,11 +35,11 @@ const styles = StyleSheet.create({
     padding: 40,
     justifyContent: 'space-between',
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: colors.white,
   },
   openingText: {
-    color: '#FFF',
-    fontFamily: 'Nunito-SemiBold',
+    color: colors.white,
+    fontFamily: fonts.primary[600],
     fontSize: 28,
     lineHeight: 34,
     marginTop: 91,

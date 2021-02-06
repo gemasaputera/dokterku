@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {colors, fonts} from '../../utils';
 import {ILLogo} from './../../assets';
 import {Input, Separator, Link, Button} from './../../components';
 
-export default function Login() {
+export default function Login({navigation}) {
   return (
     <View style={styles.page}>
       <ILLogo />
@@ -14,7 +15,11 @@ export default function Login() {
       <Separator height={10} />
       <Link title="Forgot My Password" size={12} lineHeight={16} />
       <Separator height={40} />
-      <Button type="primary" title="Sign In" />
+      <Button
+        type="primary"
+        title="Sign In"
+        onPress={() => navigation.replace('MainApp')}
+      />
       <Separator height={30} />
       <Link
         title="Create New Account"
@@ -28,15 +33,15 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     flex: 1,
     padding: 40,
   },
   title: {
-    color: '#112340',
+    color: colors.secondary,
     fontSize: 20,
     lineHeight: 24,
-    fontFamily: 'Nunito-SemiBold',
+    fontFamily: fonts.primary[600],
     marginTop: 40,
     marginBottom: 40,
     maxWidth: 165,
