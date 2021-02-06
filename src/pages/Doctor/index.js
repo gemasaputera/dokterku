@@ -13,30 +13,38 @@ const Doctor = () => {
   return (
     <View style={styles.container}>
       <View style={styles.page}>
-        <HomeProfile />
-        <Text style={styles.welcomeText}>
-          Mau konsultasi dengan siapa hari ini?
-        </Text>
-        <View style={styles.wrapper}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.category}>
-              <Separator width={16} />
-              <DoctorCategory title="dokter umum" />
-              <DoctorCategory title="psikiater" />
-              <DoctorCategory title="dokter obat" />
-              <DoctorCategory title="dokter anak" />
-              <Separator width={6} />
-            </View>
-          </ScrollView>
-        </View>
-        <Text style={styles.sectionLabel}> Top Rated Doctors</Text>
-        <RatedDoctor />
-        <RatedDoctor />
-        <RatedDoctor />
-        <Text style={styles.sectionLabel}>Good News</Text>
-        <NewsItem />
-        <NewsItem />
-        <NewsItem />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Separator height={30} />
+          <View style={styles.wrapperSection}>
+            <HomeProfile />
+            <Text style={styles.welcomeText}>
+              Mau konsultasi dengan siapa hari ini?
+            </Text>
+          </View>
+          <View style={styles.wrapper}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.category}>
+                <Separator width={32} />
+                <DoctorCategory title="dokter umum" />
+                <DoctorCategory title="psikiater" />
+                <DoctorCategory title="dokter obat" />
+                <DoctorCategory title="dokter anak" />
+                <Separator width={22} />
+              </View>
+            </ScrollView>
+          </View>
+          <View style={styles.wrapperSection}>
+            <Text style={styles.sectionLabel}> Top Rated Doctors</Text>
+            <RatedDoctor />
+            <RatedDoctor />
+            <RatedDoctor />
+            <Text style={styles.sectionLabel}>Good News</Text>
+          </View>
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <Separator height={30} />
+        </ScrollView>
       </View>
     </View>
   );
@@ -56,8 +64,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    paddingVertical: 30,
-    paddingHorizontal: 16,
     flex: 1,
   },
   sectionLabel: {
@@ -77,5 +83,8 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     marginHorizontal: -16,
+  },
+  wrapperSection: {
+    paddingHorizontal: 16,
   },
 });

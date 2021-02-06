@@ -7,6 +7,7 @@ import IconMessage from './ic-message.svg';
 import IconMessageActive from './ic-primary-message.svg';
 import IconMap from './ic-map.svg';
 import IconMapActive from './ic-primary-map.svg';
+import IconStar from './ic-star.svg';
 
 export {
   IconBackDark,
@@ -18,4 +19,5 @@ export {
   IconMessageActive,
   IconMap,
   IconMapActive,
+  IconStar,
 };
