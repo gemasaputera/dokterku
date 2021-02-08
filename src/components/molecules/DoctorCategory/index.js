@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../../utils/colors';
 import {
   ILHeart,
@@ -9,7 +9,7 @@ import {
 } from './../../../assets';
 import {fonts} from './../../../utils';
 
-const DoctorCategory = ({category}) => {
+const DoctorCategory = ({category, onPress}) => {
   const Icon = () => {
     if (category === 'psikiater') {
       return <ILHeart style={styles.illustration} />;
@@ -23,13 +23,13 @@ const DoctorCategory = ({category}) => {
     return <ILMarker style={styles.illustration} />;
   };
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Icon />
       <View>
         <Text style={styles.defaultText}>Saya butuh</Text>
         <Text style={styles.title}>{category}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

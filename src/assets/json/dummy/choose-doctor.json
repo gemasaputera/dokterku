@@ -1,0 +1,29 @@
+{
+  "data" : [
+    {
+      "id" : 1,
+      "name" : "Alexander Jannie",
+      "gender" : "Wanita"
+    },
+    {
+      "id" : 2,
+      "name" : "John McParker Steve",
+      "gender" : "Pria"
+    },
+    {
+      "id" : 3,
+      "name" : "Nairobi Putri Hayza",
+      "gender" : "Wanita"
+    },
+    {
+      "id" : 4,
+      "name" : "James Rivillia",
+      "gender" : "Pria"
+    },
+    {
+      "id" : 5,
+      "name" : "Liu Yue Tian Park",
+      "gender" : "Wanita"
+    }
+  ]
+}

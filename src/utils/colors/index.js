@@ -4,7 +4,10 @@ const mainColors = {
   dark2: '#495A75',
   grey1: '#7D8797',
   grey2: '#E9E9E9',
+  grey3: '#8092AF',
+  grey4: '#EDEEF0',
   lightBlue: '#EDFCFD',
+  blue: '#0066CB',
 };
 
 export const colors = {
@@ -13,9 +16,11 @@ export const colors = {
   white: 'white',
   black: 'black',
   lightBlue: mainColors.lightBlue,
+  disable: mainColors.grey4,
   text: {
     primary: mainColors.dark1,
     secondary: mainColors.grey1,
+    tertiary: mainColors.grey3,
     menuActive: mainColors.green1,
     menuInactive: mainColors.dark2,
   },
@@ -27,6 +32,10 @@ export const colors = {
     secondary: {
       background: 'white',
       text: mainColors.dark1,
+    },
+    tertiary: {
+      background: mainColors.blue,
+      text: 'white',
     },
   },
   border: mainColors.grey2,

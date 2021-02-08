@@ -9,6 +9,11 @@ import DummyUserPic1 from './user_pic.png';
 import DummyUserPic2 from './user_pic2.png';
 import DummyUserPic3 from './user_pic3.png';
 import DummyUserPic4 from './user_pic4.png';
+import DummyUserPic5 from './user_pic5.png';
+import DummyUserPic6 from './user_pic6.png';
+import DummyUserPic7 from './user_pic7.png';
+import DummyUserPic8 from './user_pic8.png';
+import DummyUserPic9 from './user_pic9.png';
 
 export {
   DummyPicBuilding,
@@ -22,4 +27,9 @@ export {
   DummyUserPic2,
   DummyUserPic3,
   DummyUserPic4,
+  DummyUserPic5,
+  DummyUserPic6,
+  DummyUserPic7,
+  DummyUserPic8,
+  DummyUserPic9,
 };
