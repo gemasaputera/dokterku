@@ -1,16 +1,33 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {colors} from '../../../utils/colors';
-import {ILMarker} from './../../../assets';
+import {
+  ILHeart,
+  ILHeartWithHand,
+  ILMarker,
+  ILMedicine,
+} from './../../../assets';
 import {fonts} from './../../../utils';
 
-const DoctorCategory = ({title}) => {
+const DoctorCategory = ({category}) => {
+  const Icon = () => {
+    if (category === 'psikiater') {
+      return <ILHeart style={styles.illustration} />;
+    }
+    if (category === 'dokter obat') {
+      return <ILMedicine style={styles.illustration} />;
+    }
+    if (category === 'dokter anak') {
+      return <ILHeartWithHand style={styles.illustration} />;
+    }
+    return <ILMarker style={styles.illustration} />;
+  };
   return (
     <View style={styles.container}>
-      <ILMarker style={styles.illustration} />
+      <Icon />
       <View>
         <Text style={styles.defaultText}>Saya butuh</Text>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{category}</Text>
       </View>
     </View>
   );

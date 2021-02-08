@@ -1,6 +1,10 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
-import {DummyPicBuilding2} from '../../assets/dummy';
+import {
+  DummyPicBuilding2,
+  DummyPicBuilding3,
+  DummyPicBuilding4,
+} from '../../assets/dummy';
 import {ListHospital, Separator} from '../../components';
 import {colors, fonts} from './../../utils';
 
@@ -13,9 +17,21 @@ const Hospital = () => {
       </ImageBackground>
       <View style={styles.page}>
         <Separator height={14} />
-        <ListHospital />
-        <ListHospital />
-        <ListHospital />
+        <ListHospital
+          name="Rumah Sakit Citra Bunga Merdeka"
+          address="Jln. Surya Sejahtera 20"
+          image={DummyPicBuilding2}
+        />
+        <ListHospital
+          name="Rumah Sakit Anak Happy Family & Kids"
+          address="Jln. Surya Sejahtera 20"
+          image={DummyPicBuilding3}
+        />
+        <ListHospital
+          name="Rumah Sakit Jiwa Tingkatan Paling Atas"
+          address="Jln. Surya Sejahtera 20"
+          image={DummyPicBuilding4}
+        />
       </View>
     </View>
   );
