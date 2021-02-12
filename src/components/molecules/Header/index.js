@@ -12,7 +12,7 @@ export default function Header({onPress, title, type}) {
     <View style={styles.container(type)}>
       <Button
         type="icon-only"
-        icon={type === 'dark' ? 'back-light' : 'back-light'}
+        icon={type === 'dark' ? 'back-light' : 'back-dark'}
         onPress={onPress}
       />
       <Text style={styles.title(type)}>{title}</Text>

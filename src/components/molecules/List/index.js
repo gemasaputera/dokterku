@@ -1,12 +1,33 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {IconNext} from '../../../assets';
+import {
+  IconNext,
+  IconFile,
+  IconProfile,
+  IconStarMenu,
+  IconTranslate,
+} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const ListDoctor = ({picture, name, description, type, onPress}) => {
+const List = ({picture, name, description, type, onPress, icon}) => {
+  const Icon = () => {
+    if (icon === 'edit-profile') {
+      return <IconProfile />;
+    }
+    if (icon === 'translate') {
+      return <IconTranslate />;
+    }
+    if (icon === 'star-menu') {
+      return <IconStarMenu />;
+    }
+    if (icon === 'document') {
+      return <IconFile />;
+    }
+    return <IconProfile />;
+  };
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Image style={styles.picture} source={picture} />
+      {icon ? <Icon /> : <Image style={styles.picture} source={picture} />}
       <View style={styles.wrapper}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.message}>{description}</Text>
@@ -16,7 +37,7 @@ const ListDoctor = ({picture, name, description, type, onPress}) => {
   );
 };
 
-export default ListDoctor;
+export default List;
 
 const styles = StyleSheet.create({
   container: {

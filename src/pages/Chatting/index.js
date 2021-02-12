@@ -13,9 +13,15 @@ const Chatting = ({navigation}) => {
       />
       <ScrollView style={styles.wrapperChat}>
         <Text style={styles.chatDate}>Senin, 21 Maret, 2020</Text>
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
+        <ChatItem
+          isMe
+          message="Ibu dokter, apakah memakan jeruk tiap hari itu buruk?"
+        />
+        <ChatItem message="Oh tentu saja tidak karena jeruk itu sangat sehat..." />
+        <ChatItem
+          isMe
+          message="Ibu dokter, apakah memakan jeruk tiap hari itu buruk?"
+        />
       </ScrollView>
       <InputChat />
     </View>

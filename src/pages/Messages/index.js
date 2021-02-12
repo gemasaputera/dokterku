@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {colors, fonts} from './../../utils';
-import {ListDoctor} from './../../components';
+import {List} from './../../components';
 import {DummyUserPic2, DummyUserPic3, DummyUserPic4} from '../../assets';
 
 const Messages = () => {
@@ -31,7 +31,7 @@ const Messages = () => {
         <Text style={styles.title}>Messages</Text>
         {messages.map((message) => {
           return (
-            <ListDoctor
+            <List
               key={message.id}
               picture={message.profile}
               name={message.name}

@@ -1,8 +1,8 @@
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import {DummyUserPic1, JSONChooseDoctor} from '../../assets';
 import {colors} from '../../utils';
-import {Header, ListDoctor} from './../../components';
+import {Header, List} from './../../components';
 
 const ChooseDoctor = ({navigation}) => {
   return (
@@ -14,7 +14,7 @@ const ChooseDoctor = ({navigation}) => {
       />
       {JSONChooseDoctor.data.map((item) => {
         return (
-          <ListDoctor
+          <List
             picture={DummyUserPic1}
             name={item.name}
             description={item.gender}
@@ -24,25 +24,25 @@ const ChooseDoctor = ({navigation}) => {
           />
         );
       })}
-      <ListDoctor
+      <List
         picture={DummyUserPic1}
         name="Nairobi Putri Hayza"
         description="Wanita"
         type="next"
       />
-      <ListDoctor
+      <List
         picture={DummyUserPic1}
         name="Nairobi Putri Hayza"
         description="Wanita"
         type="next"
       />
-      <ListDoctor
+      <List
         picture={DummyUserPic1}
         name="Nairobi Putri Hayza"
         description="Wanita"
         type="next"
       />
-      <ListDoctor
+      <List
         picture={DummyUserPic1}
         name="Nairobi Putri Hayza"
         description="Wanita"

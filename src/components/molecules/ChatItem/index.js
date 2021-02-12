@@ -1,16 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import IsMe from './IsMe';
+import Others from './Others';
 
-const ChatItem = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Chat Item Component</Text>
-    </View>
-  );
+const ChatItem = ({isMe, message}) => {
+  if (isMe) {
+    return <IsMe message={message} />;
+  }
+
+  return <Others message={message} />;
 };
 
 export default ChatItem;
-
-const styles = StyleSheet.create({
-  container: {},
-});

@@ -16,6 +16,7 @@ export const colors = {
   white: 'white',
   black: 'black',
   lightBlue: mainColors.lightBlue,
+  blue: mainColors.blue,
   disable: mainColors.grey4,
   text: {
     primary: mainColors.dark1,
