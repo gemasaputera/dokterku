@@ -4,7 +4,7 @@ import {colors, fonts} from './../../utils';
 import {List} from './../../components';
 import {DummyUserPic2, DummyUserPic3, DummyUserPic4} from '../../assets';
 
-const Messages = () => {
+const Messages = ({navigation}) => {
   const [messages] = useState([
     {
       id: 1,
@@ -36,6 +36,7 @@ const Messages = () => {
               picture={message.profile}
               name={message.name}
               description={message.description}
+              onPress={() => navigation.navigate('Chatting')}
             />
           );
         })}

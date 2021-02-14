@@ -8,13 +8,14 @@ const UserProfile = ({navigation}) => {
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
       <Separator height={10} />
-      <Profile />
+      <Profile job="Product Designer" name="Shayna Melinda" />
       <Separator height={14} />
       <List
         name="Edit Profile"
         description="Last Update Yesterday"
         type="next"
         icon="edit-profile"
+        onPress={() => navigation.navigate('UpdateProfile')}
       />
       <List
         name="Language"

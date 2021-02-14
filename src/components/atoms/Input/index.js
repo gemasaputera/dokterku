@@ -1,25 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {colors, fonts} from '../../../utils';
 
-export default function Input({label}) {
+export default function Input({label, value, onChangeText, secureTextEntry}) {
+  const [border, setBorder] = useState(colors.border);
+  const OnFocusForm = () => {
+    setBorder(colors.blue);
+  };
+  const OnBlurForm = () => {
+    setBorder(colors.border);
+  };
   return (
     <View>
       <Text style={styles.title}>{label}</Text>
-      <TextInput style={styles.input} />
+      <TextInput
+        onFocus={OnFocusForm}
+        onBlur={OnBlurForm}
+        style={styles.input(border)}
+        onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
+        value={value}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
+  input: (border) => ({
     height: 45,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: border,
     marginTop: 6,
     padding: 12,
-  },
+  }),
   title: {
     fontFamily: fonts.primary[400],
     fontSize: 16,

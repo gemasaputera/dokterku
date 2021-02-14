@@ -41,9 +41,24 @@ const Doctor = ({navigation}) => {
           </View>
           <View style={styles.wrapperSection}>
             <Text style={styles.sectionLabel}> Top Rated Doctors</Text>
-            <RatedDoctor />
-            <RatedDoctor />
-            <RatedDoctor />
+            <RatedDoctor
+              avatar={{uri: 'https://randomuser.me/api/portraits/women/74.jpg'}}
+              name="Alexa Rachel"
+              job="Pediatrician"
+              onPress={() => navigation.navigate('DoctorProfile')}
+            />
+            <RatedDoctor
+              avatar={{uri: 'https://randomuser.me/api/portraits/men/75.jpg'}}
+              name="Sunny Frank"
+              job="Dentist"
+              onPress={() => navigation.navigate('DoctorProfile')}
+            />
+            <RatedDoctor
+              avatar={{uri: 'https://randomuser.me/api/portraits/women/76.jpg'}}
+              name="Poe Minn"
+              job="Podiatrist"
+              onPress={() => navigation.navigate('DoctorProfile')}
+            />
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
           <NewsItem />
