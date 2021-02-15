@@ -8,6 +8,9 @@ const mainColors = {
   grey4: '#EDEEF0',
   lightBlue: '#EDFCFD',
   blue: '#0066CB',
+  black1: '#000',
+  black2: 'rgba( 0, 0, 0, 0.4 )',
+  red1: '#E06379',
 };
 
 export const colors = {
@@ -40,4 +43,6 @@ export const colors = {
     },
   },
   border: mainColors.grey2,
+  loadingBackground: mainColors.black2,
+  error: mainColors.red1,
 };
