@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {colors, useForm} from '../../utils';
 import {Firebase} from '../../config';
 import {Header, Input, Separator, Button, Loading} from './../../components';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 
 export default function Register({navigation}) {
   const [loading, setLoading] = useState(false);
@@ -21,8 +21,14 @@ export default function Register({navigation}) {
       .then((success) => {
         console.log('success', success);
         setForm('reset');
+        const data = {
+          fullName: form.fullName,
+          job: form.job,
+          email: form.email,
+        };
+        Firebase.database().ref(`users/${success.user.uid}/`).set(data);
         setLoading(false);
-        // navigation.navigate('UploadPhoto')
+        navigation.navigate('UploadPhoto');
       })
       .catch((error) => {
         const errorMessage = error.message;

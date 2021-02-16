@@ -6,6 +6,7 @@ const mainColors = {
   grey2: '#E9E9E9',
   grey3: '#8092AF',
   grey4: '#EDEEF0',
+  grey5: '#B1B7C2',
   lightBlue: '#EDFCFD',
   blue: '#0066CB',
   black1: '#000',
@@ -27,6 +28,7 @@ export const colors = {
     tertiary: mainColors.grey3,
     menuActive: mainColors.green1,
     menuInactive: mainColors.dark2,
+    disabled: mainColors.grey5,
   },
   button: {
     primary: {
@@ -40,6 +42,10 @@ export const colors = {
     tertiary: {
       background: mainColors.blue,
       text: 'white',
+    },
+    disabled: {
+      background: mainColors.grey4,
+      text: mainColors.grey5,
     },
   },
   border: mainColors.grey2,
