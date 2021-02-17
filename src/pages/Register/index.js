@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {colors, useForm, storeData, getData} from '../../utils';
+import {colors, useForm, storeData} from '../../utils';
 import {Firebase} from '../../config';
 import {Header, Input, Separator, Button, Loading} from './../../components';
 import {showMessage} from 'react-native-flash-message';
@@ -19,13 +19,13 @@ export default function Register({navigation}) {
     Firebase.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then((success) => {
-        console.log('success', success);
         setForm('reset');
 
         const data = {
           fullName: form.fullName,
           job: form.job,
           email: form.email,
+          uid: success.user.uid,
         };
 
         Firebase.database().ref(`users/${success.user.uid}/`).set(data);
@@ -43,7 +43,6 @@ export default function Register({navigation}) {
           backgroundColor: colors.error,
           color: colors.white,
         });
-        console.log('error', error);
       });
   };
 

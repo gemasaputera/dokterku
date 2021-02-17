@@ -1,38 +1,53 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Header, Button, Link, Separator} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, storeData} from '../../utils';
 import {ILNullPhoto, IconPrimaryAdd, IconPrimaryRemove} from '../../assets';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {Firebase} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
-  const {fullName, job} = route.params;
+  const {fullName, job, uid} = route.params;
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
+  const [photoForDB, setPhotoForDB] = useState('');
 
   const PressedFunction = () => {
     if (hasPhoto) {
       setHasPhoto(!hasPhoto);
       setPhoto(ILNullPhoto);
     } else {
-      launchImageLibrary({}, (res) => {
-        console.log('Response = ', res);
-        if (res.didCancel) {
-          showMessage({
-            message: 'User tidak mengimport foto',
-            type: 'danger',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
-        } else {
-          const resource = {uri: res.uri};
-          setPhoto(resource);
-          setHasPhoto(true);
-        }
-      });
+      launchImageLibrary(
+        {includeBase64: true, quality: 0.3, maxHeight: 200, maxWidth: 200},
+        (response) => {
+          if (response.didCancel) {
+            showMessage({
+              message: 'User tidak mengimport foto',
+              type: 'danger',
+              backgroundColor: colors.error,
+              color: colors.white,
+            });
+          } else {
+            const dataForDB = `data:${response.type};base64, ${response.base64}`;
+            const resource = {uri: response.uri};
+            setPhotoForDB(dataForDB);
+            setPhoto(resource);
+            setHasPhoto(true);
+          }
+        },
+      );
     }
   };
+
+  const UploadAndContinue = () => {
+    Firebase.database().ref(`users/${uid}/`).update({photo: photoForDB});
+    const data = route.params;
+    data.photo = photoForDB;
+    storeData('user', data);
+    navigation.replace('MainApp');
+  };
+
   return (
     <View style={styles.page}>
       <Header title="Upload Photo" onPress={() => navigation.goBack()} />
@@ -53,7 +68,7 @@ const UploadPhoto = ({navigation, route}) => {
             disable={!hasPhoto}
             title="Upload and Continue"
             type="primary"
-            onPress={() => navigation.replace('MainApp')}
+            onPress={UploadAndContinue}
           />
           <Separator height={30} />
           <Link
