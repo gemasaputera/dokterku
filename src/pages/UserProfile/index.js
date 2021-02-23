@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
-import {colors, getData} from './../../utils';
+import {colors, getData, showError, showSuccess} from './../../utils';
 import {Header, Profile, List, Separator} from './../../components';
 import {ILNullPhoto} from '../../assets';
+import {Firebase} from '../../config';
 
 const UserProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -13,12 +14,27 @@ const UserProfile = ({navigation}) => {
 
   useEffect(() => {
     getData('user').then((response) => {
-      console.log('response', response);
       const data = response;
-      data.photo = {uri: response.photo};
+      if (data.photo === '') {
+        data.photo = ILNullPhoto;
+      } else {
+        data.photo = {uri: response.photo};
+      }
       setProfile(data);
     });
   }, []);
+
+  const logout = () => {
+    Firebase.auth()
+      .signOut()
+      .then((res) => {
+        showSuccess('succes logout');
+        navigation.replace('GetStarted');
+      })
+      .catch((err) => {
+        showError(err.message);
+      });
+  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
@@ -35,7 +51,7 @@ const UserProfile = ({navigation}) => {
         description="Last Update Yesterday"
         type="next"
         icon="edit-profile"
-        onPress={() => navigation.navigate('UpdateProfile', profile)}
+        onPress={() => navigation.navigate('UpdateProfile')}
       />
       <List
         name="Language"
@@ -50,10 +66,11 @@ const UserProfile = ({navigation}) => {
         icon="star-menu"
       />
       <List
-        name="Help Center"
+        name="Sign Out"
         description="Read our guidelines"
         type="next"
         icon="document"
+        onPress={logout}
       />
     </ScrollView>
   );

@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Header, Button, Link, Separator} from '../../components';
-import {colors, fonts, storeData} from '../../utils';
+import {colors, fonts, showError, storeData} from '../../utils';
 import {ILNullPhoto, IconPrimaryAdd, IconPrimaryRemove} from '../../assets';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {showMessage} from 'react-native-flash-message';
 import {Firebase} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
@@ -22,12 +21,7 @@ const UploadPhoto = ({navigation, route}) => {
         {includeBase64: true, quality: 0.3, maxHeight: 200, maxWidth: 200},
         (response) => {
           if (response.didCancel) {
-            showMessage({
-              message: 'User tidak mengimport foto',
-              type: 'danger',
-              backgroundColor: colors.error,
-              color: colors.white,
-            });
+            showError('User tidak mengimport foto');
           } else {
             const dataForDB = `data:${response.type};base64, ${response.base64}`;
             const resource = {uri: response.uri};

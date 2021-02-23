@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {colors, useForm, storeData} from '../../utils';
+import {colors, useForm, storeData, showError} from '../../utils';
 import {Firebase} from '../../config';
 import {Header, Input, Separator, Button, Loading} from './../../components';
-import {showMessage} from 'react-native-flash-message';
 
 export default function Register({navigation}) {
   const [loading, setLoading] = useState(false);
@@ -35,14 +34,8 @@ export default function Register({navigation}) {
         navigation.navigate('UploadPhoto', data);
       })
       .catch((error) => {
-        const errorMessage = error.message;
         setLoading(false);
-        showMessage({
-          message: errorMessage,
-          type: 'danger',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(error.message);
       });
   };
 

@@ -13,7 +13,11 @@ const HomeProfile = ({onPress}) => {
   useEffect(() => {
     getData('user').then((response) => {
       const data = response;
-      data.photo = {uri: response.photo};
+      if (data.photo === '') {
+        data.photo = ILNullPhoto;
+      } else {
+        data.photo = {uri: response.photo};
+      }
       setProfile(data);
     });
   }, []);

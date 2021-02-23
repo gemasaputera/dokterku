@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {colors, fonts, storeData, useForm} from '../../utils';
 import {Firebase} from '../../config';
 import {ILLogo} from './../../assets';
-import {Input, Separator, Link, Button, Loading} from './../../components';
-import {showMessage} from 'react-native-flash-message';
+import {Input, Separator, Link, Button} from './../../components';
+import {useDispatch} from 'react-redux';
+import {showError} from '../../utils';
 
 export default function Login({navigation}) {
-  const [loading, setLoading] = useState(false);
   const [form, setForm] = useForm({email: '', password: ''});
+  const dispatch = useDispatch();
 
   const SignIn = () => {
-    setLoading(true);
+    dispatch({type: 'SET_LOADING', value: true});
     Firebase.auth()
       .signInWithEmailAndPassword(form.email, form.password)
       .then((res) => {
@@ -25,25 +26,13 @@ export default function Login({navigation}) {
             }
           })
           .catch((error) => {
-            const errorMessage = error.message;
-            showMessage({
-              message: errorMessage,
-              type: 'danger',
-              backgroundColor: colors.error,
-              color: colors.white,
-            });
+            showError(error.message);
           });
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
       })
       .catch((err) => {
-        const errorMessage = err.message;
-        setLoading(false);
-        showMessage({
-          message: errorMessage,
-          type: 'danger',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        dispatch({type: 'SET_LOADING', value: false});
+        showError(err.message);
       });
   };
 
@@ -79,7 +68,6 @@ export default function Login({navigation}) {
           />
         </View>
       </ScrollView>
-      {loading && <Loading />}
     </>
   );
 }

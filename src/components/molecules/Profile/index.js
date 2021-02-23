@@ -1,15 +1,23 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {IconPrimaryRemove} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const Profile = ({name, job, isRemove, avatar}) => {
+const Profile = ({name, job, isRemove, avatar, onPress}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.wrapperAvatar}>
-        <Image style={styles.avatar} source={avatar} />
-        {isRemove && <IconPrimaryRemove style={styles.removeIcon} />}
-      </View>
+      {!isRemove && (
+        <View style={styles.wrapperAvatar}>
+          <Image style={styles.avatar} source={avatar} />
+          {isRemove && <IconPrimaryRemove style={styles.removeIcon} />}
+        </View>
+      )}
+      {isRemove && (
+        <TouchableOpacity style={styles.wrapperAvatar} onPress={onPress}>
+          <Image style={styles.avatar} source={avatar} />
+          {isRemove && <IconPrimaryRemove style={styles.removeIcon} />}
+        </TouchableOpacity>
+      )}
       {name ? (
         <>
           <Text style={styles.name}>{name}</Text>
