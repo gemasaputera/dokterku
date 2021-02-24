@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {Separator} from '../../components/atoms';
 import {
@@ -7,10 +7,38 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components/molecules';
-import {colors, fonts} from '../../utils';
-import {JSONCategory} from './../../assets';
+import {colors, fonts, showError} from '../../utils';
+import {Firebase} from '../../config';
 
 const Doctor = ({navigation}) => {
+  const [news, setNews] = useState([]);
+  const [categoryDoctor, setCategoryDoctor] = useState([]);
+  useEffect(() => {
+    Firebase.database()
+      .ref('news/')
+      .once('value')
+      .then((res) => {
+        if (res.val()) {
+          setNews(res.val());
+        }
+      })
+      .catch((error) => {
+        showError(error.message);
+      });
+
+    Firebase.database()
+      .ref('category_doctor/')
+      .once('value')
+      .then((res) => {
+        if (res.val()) {
+          setCategoryDoctor(res.val());
+        }
+      })
+      .catch((error) => {
+        showError(error.message);
+      });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.page}>
@@ -26,15 +54,16 @@ const Doctor = ({navigation}) => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
                 <Separator width={32} />
-                {JSONCategory.data.map((item) => {
-                  return (
-                    <DoctorCategory
-                      category={item.category}
-                      onPress={() => navigation.navigate('ChooseDoctor')}
-                      key={item.id}
-                    />
-                  );
-                })}
+                {categoryDoctor.length !== 0 &&
+                  categoryDoctor.map((item) => {
+                    return (
+                      <DoctorCategory
+                        category={item.category}
+                        onPress={() => navigation.navigate('ChooseDoctor')}
+                        key={item.id}
+                      />
+                    );
+                  })}
                 <Separator width={22} />
               </View>
             </ScrollView>
@@ -61,9 +90,17 @@ const Doctor = ({navigation}) => {
             />
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
-          <NewsItem />
-          <NewsItem />
-          <NewsItem />
+          {news.length !== 0 &&
+            news.map((newsItem) => {
+              return (
+                <NewsItem
+                  key={newsItem.id}
+                  title={newsItem.title}
+                  date={newsItem.date}
+                  image={newsItem.image}
+                />
+              );
+            })}
           <Separator height={30} />
         </ScrollView>
       </View>
