@@ -13,31 +13,65 @@ import {Firebase} from '../../config';
 const Doctor = ({navigation}) => {
   const [news, setNews] = useState([]);
   const [categoryDoctor, setCategoryDoctor] = useState([]);
+  const [topRatedDoctor, setTopRatedDoctor] = useState([]);
   useEffect(() => {
-    Firebase.database()
-      .ref('news/')
-      .once('value')
-      .then((res) => {
-        if (res.val()) {
-          setNews(res.val());
-        }
-      })
-      .catch((error) => {
-        showError(error.message);
-      });
+    getCategoryDoctor();
+    getTopRatedDoctor();
+    getNews();
+  }, []);
 
+  const getCategoryDoctor = () => {
     Firebase.database()
       .ref('category_doctor/')
       .once('value')
       .then((res) => {
         if (res.val()) {
-          setCategoryDoctor(res.val());
+          const data = res.val();
+          const filtered = data.filter((el) => el !== null);
+          setCategoryDoctor(filtered);
         }
       })
       .catch((error) => {
         showError(error.message);
       });
-  }, []);
+  };
+
+  const getTopRatedDoctor = () => {
+    Firebase.database()
+      .ref('doctors/')
+      .orderByChild('rate')
+      .limitToLast(3)
+      .once('value')
+      .then((res) => {
+        if (res.val()) {
+          const oldData = res.val();
+          const data = [];
+          Object.keys(oldData).map((key) => {
+            data.push({id: key, data: oldData[key]});
+          });
+          setTopRatedDoctor(data);
+        }
+      })
+      .catch((error) => {
+        showError(error.message);
+      });
+  };
+
+  const getNews = () => {
+    Firebase.database()
+      .ref('news/')
+      .once('value')
+      .then((res) => {
+        if (res.val()) {
+          const data = res.val();
+          const filtered = data.filter((el) => el !== null);
+          setNews(filtered);
+        }
+      })
+      .catch((error) => {
+        showError(error.message);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -59,7 +93,9 @@ const Doctor = ({navigation}) => {
                     return (
                       <DoctorCategory
                         category={item.category}
-                        onPress={() => navigation.navigate('ChooseDoctor')}
+                        onPress={() =>
+                          navigation.navigate('ChooseDoctor', item)
+                        }
                         key={item.id}
                       />
                     );
@@ -70,24 +106,20 @@ const Doctor = ({navigation}) => {
           </View>
           <View style={styles.wrapperSection}>
             <Text style={styles.sectionLabel}> Top Rated Doctors</Text>
-            <RatedDoctor
-              avatar={{uri: 'https://randomuser.me/api/portraits/women/74.jpg'}}
-              name="Alexa Rachel"
-              job="Pediatrician"
-              onPress={() => navigation.navigate('DoctorProfile')}
-            />
-            <RatedDoctor
-              avatar={{uri: 'https://randomuser.me/api/portraits/men/75.jpg'}}
-              name="Sunny Frank"
-              job="Dentist"
-              onPress={() => navigation.navigate('DoctorProfile')}
-            />
-            <RatedDoctor
-              avatar={{uri: 'https://randomuser.me/api/portraits/women/76.jpg'}}
-              name="Poe Minn"
-              job="Podiatrist"
-              onPress={() => navigation.navigate('DoctorProfile')}
-            />
+            {topRatedDoctor.map((item) => {
+              return (
+                <RatedDoctor
+                  avatar={{
+                    uri: item.data.photo,
+                  }}
+                  name={item.data.fullName}
+                  key={item.id}
+                  job={item.data.profession}
+                  rate={item.data.rate}
+                  onPress={() => navigation.navigate('DoctorProfile', item)}
+                />
+              );
+            })}
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
           {news.length !== 0 &&

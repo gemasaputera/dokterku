@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {
   Button,
   Header,
@@ -9,24 +9,32 @@ import {
 } from '../../components';
 import {colors} from './../../utils';
 
-const DoctorProfile = ({navigation}) => {
+const DoctorProfile = ({navigation, route}) => {
+  const dataDoctor = route.params;
   return (
     <View style={styles.container}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
       <ScrollView>
         <View>
           <Separator height={16} />
-          <Profile name="Nairobi Putri Hayza" job="Dokter Anak" />
+          <Profile
+            avatar={{uri: dataDoctor.data.photo}}
+            name={dataDoctor.data.fullName}
+            job={dataDoctor.data.profession}
+          />
           <Separator height={10} />
           <ProfileItem
             label="Alumnus"
-            description="Universitas Indonesia, 2020"
+            description={dataDoctor.data.university}
           />
           <ProfileItem
             label="Tempat Praktik"
-            description="Rumah Sakit Umum, Bandung"
+            description={dataDoctor.data.hospital_address}
           />
-          <ProfileItem label="No. STR" description="0000116622081996" />
+          <ProfileItem
+            label="No. STR"
+            description={dataDoctor.data.str_number}
+          />
           <Separator height={23} />
           <View style={styles.wrapper}>
             <Button

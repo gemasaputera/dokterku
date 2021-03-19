@@ -13,9 +13,9 @@ import {
   UserProfile,
   UpdateProfile,
   DoctorProfile,
+  Register,
+  Login,
 } from './../pages';
-import Register from '../pages/Register';
-import Login from '../pages/Login';
 import {BottomNavigator} from '../components';
 
 const Stack = createStackNavigator();

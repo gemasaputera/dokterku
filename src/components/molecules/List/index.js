@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     color: colors.text.secondary,
     fontSize: 12,
     fontFamily: fonts.primary[300],
+    textTransform: 'capitalize',
   },
   picture: {
     height: 46,

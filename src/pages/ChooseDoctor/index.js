@@ -1,53 +1,55 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
-import {DummyUserPic1, JSONChooseDoctor} from '../../assets';
+import {Firebase} from '../../config';
 import {colors} from '../../utils';
 import {Header, List} from './../../components';
 
-const ChooseDoctor = ({navigation}) => {
+const ChooseDoctor = ({navigation, route}) => {
+  const itemCategory = route.params;
+
+  const [listDoctor, setListDoctor] = useState([]);
+
+  useEffect(() => {
+    callDoctorByCategory(itemCategory.category);
+  }, [itemCategory.category]);
+
+  const callDoctorByCategory = (category) => {
+    Firebase.database()
+      .ref('doctors/')
+      .orderByChild('category')
+      .equalTo(category)
+      .once('value')
+      .then((res) => {
+        console.log('res.val()', res.val());
+        if (res.val()) {
+          const data = res.val();
+          const dataDoctor = [];
+          Object.keys(data).map((key) => {
+            dataDoctor.push({id: key, data: data[key]});
+          });
+          setListDoctor(dataDoctor);
+        }
+      });
+  };
   return (
     <ScrollView style={styles.container}>
       <Header
-        title="Pilih Dokter Anak"
+        title={itemCategory.category}
         type="dark"
         onPress={() => navigation.goBack()}
       />
-      {JSONChooseDoctor.data.map((item) => {
+      {listDoctor.map((doctor) => {
         return (
           <List
-            picture={DummyUserPic1}
-            name={item.name}
-            description={item.gender}
-            key={item.id}
+            picture={{uri: doctor.data.photo}}
+            name={doctor.data.fullName}
+            description={doctor.data.gender}
+            key={doctor.data.uid}
             type="next"
-            onPress={() => navigation.navigate('Chatting')}
+            onPress={() => navigation.navigate('DoctorProfile', doctor)}
           />
         );
       })}
-      <List
-        picture={DummyUserPic1}
-        name="Nairobi Putri Hayza"
-        description="Wanita"
-        type="next"
-      />
-      <List
-        picture={DummyUserPic1}
-        name="Nairobi Putri Hayza"
-        description="Wanita"
-        type="next"
-      />
-      <List
-        picture={DummyUserPic1}
-        name="Nairobi Putri Hayza"
-        description="Wanita"
-        type="next"
-      />
-      <List
-        picture={DummyUserPic1}
-        name="Nairobi Putri Hayza"
-        description="Wanita"
-        type="next"
-      />
     </ScrollView>
   );
 };

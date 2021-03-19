@@ -9,6 +9,8 @@ import Chatting from './Chatting';
 import UserProfile from './UserProfile';
 import UpdateProfile from './UpdateProfile';
 import DoctorProfile from './DoctorProfile';
+import Register from './Register';
+import Login from './Login';
 
 export {
   Splash,
@@ -22,4 +24,6 @@ export {
   UserProfile,
   UpdateProfile,
   DoctorProfile,
+  Register,
+  Login,
 };
