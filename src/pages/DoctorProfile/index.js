@@ -40,7 +40,7 @@ const DoctorProfile = ({navigation, route}) => {
             <Button
               title="Start Consultation"
               type="primary"
-              onPress={() => navigation.navigate('Chatting')}
+              onPress={() => navigation.navigate('Chatting', dataDoctor)}
             />
           </View>
         </View>

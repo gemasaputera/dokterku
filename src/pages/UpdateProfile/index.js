@@ -33,7 +33,6 @@ const UpdateProfile = ({navigation}) => {
   const updateProfile = () => {
     const data = profile;
     data.photo = photoForDB;
-    console.log('data', data);
     if (password.length > 0) {
       if (password.length < 6) {
         showError('Password kurang dari 6 karakter');
@@ -81,7 +80,6 @@ const UpdateProfile = ({navigation}) => {
     launchImageLibrary(
       {includeBase64: true, quality: 0.3, maxHeight: 200, maxWidth: 200},
       (response) => {
-        console.log('response', response);
         if (response.didCancel) {
           showError('User tidak mengimport foto');
         } else {

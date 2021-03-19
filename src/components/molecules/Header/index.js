@@ -4,9 +4,16 @@ import {colors, fonts} from '../../../utils';
 import {Separator, Button} from '../../atoms';
 import DarkProfile from './DarkProfile';
 
-export default function Header({onPress, title, type}) {
+export default function Header({onPress, title, category, avatar, type}) {
   if (type === 'dark-profile') {
-    return <DarkProfile onPress={onPress} />;
+    return (
+      <DarkProfile
+        onPress={onPress}
+        avatar={avatar}
+        title={title}
+        category={category}
+      />
+    );
   }
   return (
     <View style={styles.container(type)}>

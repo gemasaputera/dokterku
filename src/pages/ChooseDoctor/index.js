@@ -20,7 +20,6 @@ const ChooseDoctor = ({navigation, route}) => {
       .equalTo(category)
       .once('value')
       .then((res) => {
-        console.log('res.val()', res.val());
         if (res.val()) {
           const data = res.val();
           const dataDoctor = [];
