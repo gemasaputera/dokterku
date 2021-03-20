@@ -57,6 +57,10 @@ const Chatting = ({navigation, route}) => {
 
     const urlFirebase = `chatting/${chatId}/allChat/${setDateChat(today)}`;
 
+    const urlMessageUser = `message/${user.uid}/${chatId}`;
+
+    const urlMessageDoctor = `message/${dataDoctor.data.uid}/${chatId}`;
+
     const data = {
       sendBy: user.uid,
       chatDate: today.getTime(),
@@ -64,11 +68,27 @@ const Chatting = ({navigation, route}) => {
       chatContent: chattingContent,
     };
 
+    const dataHistoryChatForUser = {
+      lastContentChat: chattingContent,
+      lastChatDate: today.getTime(),
+      uidPartner: dataDoctor.data.uid,
+    };
+
+    const dataHistoryChatForDoctor = {
+      lastContentChat: chattingContent,
+      lastChatDate: today.getTime(),
+      uidPartner: user.uid,
+    };
+
     Firebase.database()
       .ref(urlFirebase)
       .push(data)
       .then(() => {
         setChattingContent('');
+        // set history for user
+        Firebase.database().ref(urlMessageUser).set(dataHistoryChatForUser);
+        // set history for doctor
+        Firebase.database().ref(urlMessageDoctor).set(dataHistoryChatForDoctor);
       })
       .catch((err) => {
         showError(err.message);
@@ -111,6 +131,7 @@ const Chatting = ({navigation, route}) => {
         onButtonPress={sendChat}
         onChangeText={(value) => setChattingContent(value)}
         value={chattingContent}
+        placeholder={`Tulis pesan untuk ${dataDoctor.data.fullName}`}
       />
     </View>
   );
